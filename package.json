@@ -1,0 +1,15 @@
+{
+  "name": "dead-simple-api-engine",
+  "version": "0.0.1",
+  "description": "The Dead Simple API Engine",
+  "main": "dead-simple-api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brandon Corbin <brandon@happydata.org>",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.7.1",
+    "moment": "^2.10.6"
+  },
+}
