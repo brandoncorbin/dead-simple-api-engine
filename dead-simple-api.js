@@ -7,6 +7,9 @@ var DeadSimpleAPI = function (app, config) {
 	config.hooks = config.hooks || {};
 	config.hooks.before = config.hooks.before || null;
 	config.hooks.after = config.hooks.after || null;
+	config.cors = config.cors || {};
+	config.cors.enabled = config.cors.enabled || false;
+	config.cors.origins = config.cors.origins || '*';
 
 	var fs = require('fs'),
 		cors = require('cors'),
@@ -18,6 +21,12 @@ var DeadSimpleAPI = function (app, config) {
 			next();
 		});
 	}
+
+	if(config.cors.enabled) {
+		app.use(cors());
+		app.options(config.cors.origins, cors());
+	}
+
 	if (config.hooks.after) {
 		app.use(function (req, res, next) {
 			// grab reference of render
@@ -35,8 +44,6 @@ var DeadSimpleAPI = function (app, config) {
 			next();
 		});
 	}
-	console.log("Inside DeadSimpleAPI", app.config);
-
 	/**
 	 * Route Definition
 	 * Creates the Routes for the API based on the Routes Folder
@@ -56,11 +63,6 @@ var DeadSimpleAPI = function (app, config) {
 		} // if if version is a folder
 	}
 
-	var server = app.listen(3066, function () {
-		var host = server.address().address;
-		var port = server.address().port;
-		console.log('Dead Simple API is now ALIVE! Listening over at: http://%s:%s', host, port);
-	});
 
 	/**
 	 * Scheduler Module - Fires off events at specified times
@@ -152,11 +154,9 @@ var DeadSimpleAPI = function (app, config) {
 			pvt.do(name, callback);
 			return self;
 		};
-
 		/*****************************************************
 		 *  SCHEDULER Start
 		 ******************************************************/
-
 		/**
 		 * Start the Scheduler
 		 * @return {object} self
@@ -168,7 +168,6 @@ var DeadSimpleAPI = function (app, config) {
 			if (autofire) {
 				today.subtract(1, 'day');
 			}
-
 			var times = {
 				minute: parseInt(moment(today).format('mm')),
 				hour: parseInt(moment(today).format('H')),
@@ -233,9 +232,7 @@ var DeadSimpleAPI = function (app, config) {
 					times.day = now.day;
 				}
 				times = now;
-
 			}, 1000);
-
 			return self;
 		};
 

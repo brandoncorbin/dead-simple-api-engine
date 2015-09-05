@@ -11,5 +11,13 @@
   "dependencies": {
     "cors": "^2.7.1",
     "moment": "^2.10.6"
-  }
+  },
+  "keywords" : [
+    "api",
+    "node",
+    "folders",
+    "scheduling",
+    "restful",
+    "simple"
+  ]
 }
