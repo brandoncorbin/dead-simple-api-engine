@@ -9,6 +9,7 @@
   "author": "Brandon Corbin <brandon@happydata.org>",
   "license": "MIT",
   "dependencies": {
+    "express" : "*",
     "cors": "^2.7.1",
     "moment": "^2.10.6"
   },
